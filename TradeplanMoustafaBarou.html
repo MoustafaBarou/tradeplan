@@ -1,0 +1,452 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Trade Plan — Moustafa Barou · Exodus XAUUSD</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Syne:wght@400;500;700;800&family=DM+Mono:wght@400;500&display=swap');
+*{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --gold:#C9A84C;--gold-light:#E8C97A;--gold-dim:#8A6E2F;
+  --bg:#0D0D0D;--bg2:#141414;--bg3:#1C1C1C;--bg4:#242424;
+  --txt:#F0EDE6;--txt2:#A09A90;--txt3:#6A6460;
+  --green:#4CAF76;--red:#E05252;--blue:#5B9BD5;
+  --border:rgba(201,168,76,0.18);--border2:rgba(201,168,76,0.35);
+}
+body{font-family:'Syne',sans-serif;background:var(--bg);color:var(--txt);padding:2rem 1rem;min-height:100vh}
+.plan{max-width:800px;margin:0 auto}
+
+/* HEADER */
+.header{text-align:center;padding:2.5rem 2rem 2rem;border:0.5px solid var(--border2);border-radius:16px;background:linear-gradient(180deg,rgba(201,168,76,0.07) 0%,transparent 100%);margin-bottom:2rem}
+.header-badge{display:inline-block;font-size:11px;letter-spacing:0.14em;text-transform:uppercase;color:var(--gold);border:0.5px solid var(--gold-dim);padding:5px 16px;border-radius:20px;margin-bottom:1rem;font-family:'DM Mono',monospace}
+.header h1{font-size:32px;font-weight:800;color:var(--txt);line-height:1.1;margin-bottom:0.5rem}
+.header p{font-size:14px;color:var(--txt2)}
+.header-meta{display:flex;justify-content:center;gap:1.5rem;margin-top:1rem;font-size:12px;color:var(--txt3);font-family:'DM Mono',monospace}
+
+/* SECTION */
+.section{margin-bottom:2rem}
+.section-title{font-size:11px;letter-spacing:0.14em;text-transform:uppercase;color:var(--gold);font-family:'DM Mono',monospace;margin-bottom:1rem;display:flex;align-items:center;gap:10px}
+.section-title::after{content:'';flex:1;height:0.5px;background:var(--border2)}
+
+/* STATS ROW */
+.stats-row{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-bottom:2rem}
+.stat-card{background:var(--bg3);border:0.5px solid var(--border);border-radius:10px;padding:1rem;text-align:center}
+.stat-card .val{font-size:22px;font-weight:700;color:var(--gold);font-family:'DM Mono',monospace;line-height:1}
+.stat-card .lbl{font-size:11px;color:var(--txt3);margin-top:4px;text-transform:uppercase;letter-spacing:0.06em}
+.stat-card.good .val{color:var(--green)}
+.stat-card.danger .val{color:var(--red)}
+
+/* WARNING */
+.warning-box{background:rgba(224,82,82,0.07);border:0.5px solid rgba(224,82,82,0.3);border-radius:12px;padding:1.25rem;margin-bottom:2rem}
+.warning-box h3{font-size:12px;color:var(--red);margin-bottom:0.75rem;font-weight:500;text-transform:uppercase;letter-spacing:0.06em;font-family:'DM Mono',monospace}
+.warning-line{font-size:13px;color:#E8A0A0;display:flex;gap:8px;padding:3px 0;line-height:1.5}
+.warning-line::before{content:'⚠';font-size:11px;flex-shrink:0;margin-top:2px;color:var(--red)}
+
+/* TARGET HERO */
+.target-hero{background:linear-gradient(135deg,rgba(76,175,118,0.1) 0%,rgba(76,175,118,0.04) 100%);border:0.5px solid rgba(76,175,118,0.35);border-radius:14px;padding:1.5rem;margin-bottom:2rem}
+.target-hero-top{display:flex;align-items:flex-start;justify-content:space-between;margin-bottom:1.25rem}
+.target-hero h2{font-size:11px;text-transform:uppercase;letter-spacing:0.08em;color:var(--green);font-family:'DM Mono',monospace;margin-bottom:6px}
+.target-hero .amount{font-size:52px;font-weight:800;color:var(--green);font-family:'DM Mono',monospace;line-height:1}
+.target-hero .sub{font-size:12px;color:var(--txt2);margin-top:6px}
+.target-badge{background:rgba(76,175,118,0.15);color:var(--green);font-size:11px;padding:5px 12px;border-radius:8px;font-family:'DM Mono',monospace;font-weight:500;white-space:nowrap}
+.progress-steps{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
+.prog-step{background:rgba(0,0,0,0.25);border:0.5px solid var(--border);border-radius:10px;padding:1rem;text-align:center}
+.prog-step .prog-amt{font-size:22px;font-weight:700;font-family:'DM Mono',monospace;margin-bottom:3px}
+.prog-step .prog-lbl{font-size:10px;color:var(--txt3);text-transform:uppercase;letter-spacing:0.06em;margin-bottom:5px}
+.prog-step .prog-note{font-size:12px;color:var(--txt2);line-height:1.4}
+.prog-step.s1 .prog-amt{color:var(--blue)}
+.prog-step.s2 .prog-amt{color:var(--gold)}
+.prog-step.s3 .prog-amt{color:var(--green)}
+
+/* RUN RULES */
+.run-rules{background:rgba(201,168,76,0.05);border:0.5px solid var(--border2);border-radius:12px;padding:1.25rem;margin-bottom:2rem}
+.run-rules h3{font-size:11px;text-transform:uppercase;letter-spacing:0.1em;color:var(--gold);font-family:'DM Mono',monospace;margin-bottom:1rem}
+.flow-row{display:flex;align-items:stretch;gap:8px;margin-bottom:10px}
+.flow-box{flex:1;background:rgba(0,0,0,0.2);border-radius:8px;padding:0.75rem 1rem;border:0.5px solid var(--border)}
+.flow-box .fb-num{font-size:10px;font-family:'DM Mono',monospace;color:var(--gold-dim);margin-bottom:4px}
+.flow-box .fb-title{font-size:13px;font-weight:500;color:var(--txt);margin-bottom:3px}
+.flow-box .fb-desc{font-size:12px;color:var(--txt2);line-height:1.4}
+.flow-arrow{display:flex;align-items:center;color:var(--gold-dim);font-size:18px;padding:0 4px}
+.run-warning{background:rgba(224,82,82,0.07);border:0.5px solid rgba(224,82,82,0.25);border-radius:8px;padding:0.75rem 1rem;font-size:12px;color:#E8A0A0;line-height:1.5}
+
+/* SETUPS */
+.setups{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-bottom:2rem}
+.setup-card{border-radius:12px;padding:1.25rem;border:0.5px solid var(--border)}
+.setup-card.aplus{background:rgba(201,168,76,0.08);border-color:var(--gold-dim)}
+.setup-card.b{background:rgba(91,155,213,0.07);border-color:rgba(91,155,213,0.25)}
+.setup-card.c{background:rgba(160,154,144,0.07);border-color:rgba(160,154,144,0.2)}
+.setup-grade{font-size:26px;font-weight:800;margin-bottom:4px}
+.setup-card.aplus .setup-grade{color:var(--gold)}
+.setup-card.b .setup-grade{color:var(--blue)}
+.setup-card.c .setup-grade{color:var(--txt2)}
+.setup-risk{font-size:13px;font-weight:500;color:var(--txt);font-family:'DM Mono',monospace;margin-bottom:6px}
+.setup-rr{font-size:12px;color:var(--txt2);margin-bottom:6px}
+.setup-pnl{font-size:14px;font-weight:600;margin-bottom:8px}
+.setup-card.aplus .setup-pnl{color:var(--gold)}
+.setup-card.b .setup-pnl{color:var(--blue)}
+.setup-card.c .setup-pnl{color:var(--txt2)}
+.setup-desc{font-size:12px;color:var(--txt2);line-height:1.5}
+
+/* CONFIRMATIONS */
+.confirm-list{display:grid;gap:8px;margin-bottom:2rem}
+.confirm-item{background:var(--bg3);border:0.5px solid var(--border);border-radius:10px;padding:1rem 1.25rem;display:flex;align-items:flex-start;gap:12px}
+.confirm-num{background:rgba(201,168,76,0.15);color:var(--gold);font-size:12px;font-weight:700;width:26px;height:26px;border-radius:50%;display:flex;align-items:center;justify-content:center;flex-shrink:0;font-family:'DM Mono',monospace;margin-top:1px}
+.confirm-body h4{font-size:14px;font-weight:500;color:var(--txt);margin-bottom:4px}
+.confirm-body p{font-size:13px;color:var(--txt2);line-height:1.5}
+.confirm-tag{display:inline-block;font-size:10px;padding:3px 8px;border-radius:5px;margin-top:6px;font-family:'DM Mono',monospace}
+.confirm-tag.feel{background:rgba(155,127,213,0.15);color:#C4AAFF}
+.confirm-tag.flow{background:rgba(91,155,213,0.15);color:#8DBFF5}
+.confirm-tag.flux{background:rgba(76,175,118,0.15);color:#7FD4A4}
+
+/* DAY GUIDE */
+.day-guide{display:grid;grid-template-columns:repeat(5,1fr);gap:8px;margin-bottom:2rem}
+.day-card{border-radius:10px;padding:0.875rem;text-align:center;border:0.5px solid var(--border)}
+.day-card .day-name{font-size:10px;text-transform:uppercase;letter-spacing:0.08em;font-family:'DM Mono',monospace;margin-bottom:6px;color:var(--txt2)}
+.day-card .day-prob{font-size:18px;font-weight:700;margin-bottom:4px}
+.day-card .day-note{font-size:11px;color:var(--txt3);line-height:1.4}
+.day-card.high{background:rgba(76,175,118,0.08);border-color:rgba(76,175,118,0.25)}
+.day-card.high .day-prob{color:var(--green)}
+.day-card.mid{background:rgba(201,168,76,0.06);border-color:var(--border)}
+.day-card.mid .day-prob{color:var(--gold)}
+.day-card.low{background:rgba(224,82,82,0.05);border-color:rgba(224,82,82,0.15)}
+.day-card.low .day-prob{color:var(--red)}
+
+/* RULES GRID */
+.rules-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:2rem}
+.rule-block{background:var(--bg3);border:0.5px solid var(--border);border-radius:10px;padding:1rem 1.25rem}
+.rule-block h3{font-size:12px;color:var(--gold);margin-bottom:0.75rem;font-weight:500;text-transform:uppercase;letter-spacing:0.06em;font-family:'DM Mono',monospace}
+.rule-line{font-size:13px;color:var(--txt2);padding:4px 0;display:flex;align-items:flex-start;gap:8px;line-height:1.4}
+.rule-line::before{content:'›';color:var(--gold-dim);flex-shrink:0;margin-top:1px}
+.rule-line span{color:var(--txt)}
+.rule-line b{color:var(--green);font-weight:500}
+.rule-line .no{color:var(--red);font-weight:500}
+
+/* LOT TABLE */
+.lot-table{width:100%;border-collapse:collapse;font-size:13px;margin-bottom:2rem}
+.lot-table th{background:rgba(201,168,76,0.1);color:var(--gold);padding:8px 12px;text-align:left;font-weight:500;font-size:11px;text-transform:uppercase;letter-spacing:0.06em;font-family:'DM Mono',monospace;border:0.5px solid var(--border)}
+.lot-table td{padding:8px 12px;border:0.5px solid var(--border);color:var(--txt2)}
+.lot-table tr:nth-child(even) td{background:rgba(255,255,255,0.02)}
+.lot-table .highlight{color:var(--gold);font-family:'DM Mono',monospace;font-weight:500}
+
+/* MOTTO */
+.motto{text-align:center;padding:2rem 1rem;border:0.5px solid var(--border);border-radius:12px;margin-top:2rem;background:rgba(201,168,76,0.03)}
+.motto p{font-size:16px;color:var(--txt2);font-style:italic;line-height:1.6;max-width:500px;margin:0 auto}
+.motto span{color:var(--gold)}
+
+/* FOOTER */
+.footer{text-align:center;margin-top:2rem;font-size:11px;color:var(--txt3);font-family:'DM Mono',monospace}
+
+@media print {
+  body{background:#fff;color:#111}
+  :root{--txt:#111;--txt2:#444;--txt3:#777;--bg3:#f5f5f5;--border:rgba(0,0,0,0.15);--border2:rgba(0,0,0,0.25)}
+}
+</style>
+</head>
+<body>
+<div class="plan">
+
+  <div class="header">
+    <div class="header-badge">Persoonlijk Trade Plan · Exodus V2 · 2025</div>
+    <h1>Moustafa Barou</h1>
+    <p>XAUUSD Daytrading · VT Markets · Exodus strategie</p>
+    <div class="header-meta">
+      <span>Doel: Full-time trader</span>
+      <span>|</span>
+      <span>Account: VTMarkets Live</span>
+      <span>|</span>
+      <span>Instrument: XAUUSD</span>
+    </div>
+  </div>
+
+  <!-- STATS -->
+  <div class="stats-row">
+    <div class="stat-card good"><div class="val">77.7%</div><div class="lbl">Win Rate historisch</div></div>
+    <div class="stat-card"><div class="val">Max 3</div><div class="lbl">Trades per dag</div></div>
+    <div class="stat-card danger"><div class="val">19%</div><div class="lbl">Had geen SL ⚠</div></div>
+    <div class="stat-card"><div class="val">€100</div><div class="lbl">Max risico / trade</div></div>
+  </div>
+
+  <!-- WARNING -->
+  <div class="section">
+    <div class="section-title">Gevonden zwakheden — jouw historische data</div>
+    <div class="warning-box">
+      <h3>Verbeter deze punten direct</h3>
+      <div class="warning-line">Op 21 april opende je 312 trades op één dag — dit is het grootste gevaar voor je account. Max 3 trades per dag, ongeacht resultaat.</div>
+      <div class="warning-line">19% van al je trades had géén stop-loss. Eén slechte trade zonder SL op XAUUSD kan je account wissen. SL is verplicht vóór entry.</div>
+      <div class="warning-line">Meerdere posities tegelijk openen op dezelfde setup vergroot verlies exponentieel. Eén positie per setup, altijd.</div>
+    </div>
+  </div>
+
+  <!-- DAILY TARGET -->
+  <div class="section">
+    <div class="section-title">Dagelijks target systeem</div>
+    <div class="target-hero">
+      <div class="target-hero-top">
+        <div>
+          <h2>Dagelijks einddoel (full-time doel)</h2>
+          <div class="amount">€600</div>
+          <div class="sub">= jouw huidige dagsalaris · dit is het full-time doel</div>
+        </div>
+        <div class="target-badge">Full-time doel</div>
+      </div>
+      <div class="progress-steps">
+        <div class="prog-step s1">
+          <div class="prog-amt">€200</div>
+          <div class="prog-lbl">Fase 1 — Stop</div>
+          <div class="prog-note">Stop trading. Winst beschermd. Elke dag consequent doen.</div>
+        </div>
+        <div class="prog-step s2">
+          <div class="prog-amt">€400</div>
+          <div class="prog-lbl">Fase 2 — Trail</div>
+          <div class="prog-note">Trail SL naar break-even. 50% partials genomen. Runner lopen.</div>
+        </div>
+        <div class="prog-step s3">
+          <div class="prog-amt">€600+</div>
+          <div class="prog-lbl">Fase 3 — DOL</div>
+          <div class="prog-note">DOL bereikt? Sluiten. Dag klaar. Geen extra trades meer.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- RUNNER RULES -->
+  <div class="section">
+    <div class="section-title">Trade laten lopen — regels voor runners</div>
+    <div class="run-rules">
+      <h3>Wanneer mag een trade voorbij €200 lopen?</h3>
+      <div class="flow-row">
+        <div class="flow-box">
+          <div class="fb-num">STAP 1 — Bij €200</div>
+          <div class="fb-title">Partials nemen</div>
+          <div class="fb-desc">Neem 50% van de positie. Bescherm €100 winst. Zet SL naar break-even. Laat 50% lopen naar het DOL.</div>
+        </div>
+        <div class="flow-arrow">›</div>
+        <div class="flow-box">
+          <div class="fb-num">STAP 2 — Bij €400</div>
+          <div class="fb-title">Opnieuw partials</div>
+          <div class="fb-desc">Neem nog 25% partial. Trail SL mee naar het laatste swing low/high op M15. Geen vaste afstand.</div>
+        </div>
+        <div class="flow-arrow">›</div>
+        <div class="flow-box">
+          <div class="fb-num">STAP 3 — Runner</div>
+          <div class="fb-title">DOL als eindtarget</div>
+          <div class="fb-desc">Laat de laatste 25% lopen tot het daily draw on liquidity. Niet vroeg sluiten uit angst. DOL is het doel.</div>
+        </div>
+      </div>
+      <div class="run-warning">
+        ⚠ Runner is ALLEEN toegestaan als: FEEL + FLOW + FLUX perfect aligned zijn, SL staat op break-even, en je het DOL duidelijk hebt gemarkeerd op de daily timeframe. Zonder gemarkeerd DOL = geen runner, positie sluiten bij fase 1.
+      </div>
+    </div>
+  </div>
+
+  <!-- SETUP GRADING -->
+  <div class="section">
+    <div class="section-title">Setup grading — kwaliteit bepaalt jouw risico</div>
+    <div class="setups">
+      <div class="setup-card aplus">
+        <div class="setup-grade">A+</div>
+        <div class="setup-risk">Risico: €100</div>
+        <div class="setup-rr">Min R:R 1:3 · runner tot 1:6</div>
+        <div class="setup-pnl">Target: €300 – €600</div>
+        <div class="setup-desc">Alle Exodus confirmaties aanwezig. FEEL + FLOW + FLUX perfect aligned. Liquidity sweep + displacement + OTE + DXY divergentie. Dinsdag/woensdag in Londense sessie.</div>
+      </div>
+      <div class="setup-card b">
+        <div class="setup-grade">B</div>
+        <div class="setup-risk">Risico: €80</div>
+        <div class="setup-rr">Min R:R 1:2</div>
+        <div class="setup-pnl">Target: €160</div>
+        <div class="setup-desc">Meeste confirmaties aanwezig. FEEL + FLOW kloppen, FLUX heeft één missing element. Geen runner. Vaste TP op 1:2.</div>
+      </div>
+      <div class="setup-card c">
+        <div class="setup-grade">C</div>
+        <div class="setup-risk">Risico: €50</div>
+        <div class="setup-rr">Min R:R 1:1.5</div>
+        <div class="setup-pnl">Target: €75</div>
+        <div class="setup-desc">Basisconfirmaties aanwezig. Alleen in trending markt met duidelijke H1 richting. Geen divergentie nodig maar wel sweep aanwezig.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- CONFIRMATIES (EXODUS) -->
+  <div class="section">
+    <div class="section-title">Exodus confirmatie checklist — Feel → Flow → Flux</div>
+    <div class="confirm-list">
+      <div class="confirm-item">
+        <div class="confirm-num">1</div>
+        <div class="confirm-body">
+          <h4>Daily DOL bepalen — 20-bar liquidity range</h4>
+          <p>Markeer de 20 meest recente dagelijkse candles. Identificeer de nearest liquidity pool — buy-side of sell-side. Dit is jouw ENIGE target voor de dag. Expandeer naar 40 of 60 bars voor bredere context. Intraday bias komt altijd vanuit de daily DOL.</p>
+          <span class="confirm-tag feel">FEEL — Weekly/Daily</span>
+        </div>
+      </div>
+      <div class="confirm-item">
+        <div class="confirm-num">2</div>
+        <div class="confirm-body">
+          <h4>H1 delivery check — de "glue"</h4>
+          <p>Is H1 aan het expanderen richting de DOL? H1 verbindt jouw daily bias met de LTF executie. Als H1 rommelig is, overlappend of geen clear intent toont → skip de dag. H1 moet clean, controlled en aligned zijn met het plan.</p>
+          <span class="confirm-tag flow">FLOW — H1</span>
+        </div>
+      </div>
+      <div class="confirm-item">
+        <div class="confirm-num">3</div>
+        <div class="confirm-body">
+          <h4>Po3 fase identificeren — Accumulation → Manipulation → Expansion</h4>
+          <p>Asia formt de accumulation (equal lows/highs). London sweept de Asian high/low — dit is de manipulatie. Na de sweep: displacement + imbalance = begin van expansie. Jij tradet ALLEEN de expansiefase, nooit de manipulatiefase. Wacht op bevestiging dat de sweep klaar is.</p>
+          <span class="confirm-tag flow">FLOW — Sessie timing</span>
+        </div>
+      </div>
+      <div class="confirm-item">
+        <div class="confirm-num">4</div>
+        <div class="confirm-body">
+          <h4>DXY divergentie check</h4>
+          <p>Check of DXY tegengesteld beweegt aan XAUUSD (of EURUSD). Positieve divergentie = DXY lagere low terwijl gold hogere low houdt = bullish signaal. Negatieve divergentie = bearish. Divergentie telt ALLEEN bij een liquidity extreme of key array, niet in het midden van een move. Dit is een ondersteunend element, niet het hoofdsignaal.</p>
+          <span class="confirm-tag flow">FLOW — DXY Confluence</span>
+        </div>
+      </div>
+      <div class="confirm-item">
+        <div class="confirm-num">5</div>
+        <div class="confirm-body">
+          <h4>LTF entry — 1-2 model op M5/M15</h4>
+          <p>Stap 1 (interest): liquidity sweep, displacement, imbalance. Stap 2 (bevestiging): market structure shift of higher low/lower high. Entry E1 = agressief, direct na sweep + imbalance op OTE. Entry E2 = conservatief, na MS shift + retracement. BPR overlappend met OTE = A+ confluence. Geen imbalance = geen entry.</p>
+          <span class="confirm-tag flux">FLUX — M15/M5/M1</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- DAY OF WEEK -->
+  <div class="section">
+    <div class="section-title">Dag van de week — kans inschatting</div>
+    <div class="day-guide">
+      <div class="day-card mid">
+        <div class="day-name">Maandag</div>
+        <div class="day-prob">C</div>
+        <div class="day-note">Liquiditeit opbouw. Observeer, geen trades.</div>
+      </div>
+      <div class="day-card high">
+        <div class="day-name">Dinsdag</div>
+        <div class="day-prob">A+</div>
+        <div class="day-note">Beste dag. Clean delivery. Volle lot.</div>
+      </div>
+      <div class="day-card high">
+        <div class="day-name">Woensdag</div>
+        <div class="day-prob">A+</div>
+        <div class="day-note">Weekly DOL in play. Zware setups.</div>
+      </div>
+      <div class="day-card mid">
+        <div class="day-name">Donderdag</div>
+        <div class="day-prob">B</div>
+        <div class="day-note">Kleiner target. Halveer de lot.</div>
+      </div>
+      <div class="day-card low">
+        <div class="day-name">Vrijdag</div>
+        <div class="day-prob">Skip</div>
+        <div class="day-note">Geen richting. Niet traden.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- RISK MANAGEMENT -->
+  <div class="section">
+    <div class="section-title">Risicobeheer — de regels</div>
+    <div class="rules-grid">
+      <div class="rule-block">
+        <h3>Positie regels</h3>
+        <div class="rule-line"><span>Max <b>1 positie</b> per setup, nooit bijkopen in verlies</span></div>
+        <div class="rule-line"><span>Stop-loss is <b>verplicht</b> vóór je op buy/sell drukt</span></div>
+        <div class="rule-line"><span>Minimum R:R: <b>A+ 1:3 · B 1:2 · C 1:1.5</b></span></div>
+        <div class="rule-line"><span>Max <b>3 trades per dag</b>, daarna stop — altijd</span></div>
+        <div class="rule-line"><span>Na 2 verliezen op rij: <b>dag stoppen</b></span></div>
+      </div>
+      <div class="rule-block">
+        <h3>Verboden gedrag</h3>
+        <div class="rule-line"><span class="no">VERBODEN:</span> <span>traden zonder stop-loss</span></div>
+        <div class="rule-line"><span class="no">VERBODEN:</span> <span>meer dan 1 positie tegelijk per setup</span></div>
+        <div class="rule-line"><span class="no">VERBODEN:</span> <span>traden na dagelijks verlies limiet van €150</span></div>
+        <div class="rule-line"><span class="no">VERBODEN:</span> <span>SL verplaatsen als verlies nadert</span></div>
+        <div class="rule-line"><span class="no">VERBODEN:</span> <span>traden op vrijdag</span></div>
+      </div>
+      <div class="rule-block">
+        <h3>Sessie tijden (CET)</h3>
+        <div class="rule-line"><span>Londen open: <b>09:00 – 12:00</b> (sweep fase)</span></div>
+        <div class="rule-line"><span>New York open: <b>14:30 – 17:00</b> (delivery fase)</span></div>
+        <div class="rule-line"><span>Markeer NYMNO elke dag als referentie</span></div>
+        <div class="rule-line"><span>Geen trades in Asia sessie op XAUUSD</span></div>
+        <div class="rule-line"><span>Vermijd eerste 30 min na NFP/Fed nieuws</span></div>
+      </div>
+      <div class="rule-block">
+        <h3>Winst bescherming</h3>
+        <div class="rule-line"><span>Bij 1:1: SL altijd naar <b>break-even</b></span></div>
+        <div class="rule-line"><span>A+ setup: <b>50% sluiten</b> op 1:2, rest lopen</span></div>
+        <div class="rule-line"><span>Nooit winstgevende trade laten omslaan in verlies</span></div>
+        <div class="rule-line"><span>Geen trades <b>houden over de nacht</b> zonder trailing SL</span></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- LOT BEREKENING -->
+  <div class="section">
+    <div class="section-title">Lot berekening — XAUUSD</div>
+    <table class="lot-table">
+      <thead>
+        <tr>
+          <th>Setup</th>
+          <th>Risico</th>
+          <th>SL afstand</th>
+          <th>Lot grootte</th>
+          <th>Min target</th>
+          <th>Max target (runner)</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><span style="color:var(--gold);font-weight:600">A+</span></td>
+          <td class="highlight">€100</td>
+          <td>10 pips ($1/pip)</td>
+          <td class="highlight">0.10 lot</td>
+          <td>€300 (1:3)</td>
+          <td style="color:var(--green)">€600 (1:6)</td>
+        </tr>
+        <tr>
+          <td><span style="color:var(--gold);font-weight:600">A+</span></td>
+          <td class="highlight">€100</td>
+          <td>20 pips ($1/pip)</td>
+          <td class="highlight">0.05 lot</td>
+          <td>€300 (1:3)</td>
+          <td style="color:var(--green)">€600 (1:6)</td>
+        </tr>
+        <tr>
+          <td><span style="color:var(--blue)">B</span></td>
+          <td class="highlight">€80</td>
+          <td>20 pips</td>
+          <td class="highlight">0.04 lot</td>
+          <td>€160 (1:2)</td>
+          <td>Geen runner</td>
+        </tr>
+        <tr>
+          <td><span style="color:var(--txt2)">C</span></td>
+          <td class="highlight">€50</td>
+          <td>20 pips</td>
+          <td class="highlight">0.025 lot</td>
+          <td>€75 (1:1.5)</td>
+          <td>Geen runner</td>
+        </tr>
+      </tbody>
+    </table>
+    <div style="font-size:12px;color:var(--txt3);font-family:'DM Mono',monospace">
+      Formule: Lot = Risico ÷ (SL in pips × $10) · Pas altijd lot aan op SL — nooit andersom · 1 pip XAUUSD = $1 per 0.01 lot = $10 per 0.10 lot
+    </div>
+  </div>
+
+  <div class="motto">
+    <p>"€600 per dag is niet het doel voor <span>elke</span> dag.<br>Het is het doel voor de <span>beste</span> dag.<br><br>Elke dag consistent €200 = <span>€4.400 per maand</span>.<br>Dat is al meer dan een modaal salaris."</p>
+  </div>
+
+  <div class="footer">
+    Trade Plan V2 · Exodus XAUUSD · Moustafa Barou · Gegenereerd mei 2026
+  </div>
+
+</div>
+</body>
+</html>
